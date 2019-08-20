@@ -3,21 +3,21 @@ services:
     - docker
 
 before_install:
-    - docker build -t spud.aldridge/react-test -f ./client/Dockerfile.dev ./client
+    - docker build -t spudaldridge/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run -e CI=true spud.aldridge/react-test npm test
+  - docker run -e CI=true spudaldridge/react-test npm test
 
 after_success:
-    - docker build -t spud.aldridge/multi-client ./client
-    - docker build -t spud.aldridge/multi-nginx ./nginx
-    - docker build -t spud.aldridge/multi-server ./server
-    - docker build -t spud.aldridge/multi-worker ./worker
+    - docker build -t spudaldridge/multi-client ./client
+    - docker build -t spudaldridge/multi-nginx ./nginx
+    - docker build -t spudaldridge/multi-server ./server
+    - docker build -t spudaldridge/multi-worker ./worker
     # Login to the docker CLI
     # encrypted environment variables from travis ci
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin https://cloud.docker.com/u/spudaldridge/repository/list
     # push image to docker hub
-    - docker push spud.aldridge/multi-client
-    - docker push spud.aldridge/multi-nginx
-    - docker push spud.aldridge/multi-server
-    - docker push spud.aldridge/multi-worker
+    - docker push spudaldridge/multi-client
+    - docker push spudaldridge/multi-nginx
+    - docker push spudaldridge/multi-server
+    - docker push spudaldridge/multi-worker
